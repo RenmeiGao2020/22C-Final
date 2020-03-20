@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Cosmetic implements Comparable<Cosmetic>, Contain {
+public class Cosmetic implements Comparable<Cosmetic>, Contain,FileOutPutFormat {
 	private String category;
 	private String brand;
 	private String name;
@@ -51,14 +51,15 @@ public class Cosmetic implements Comparable<Cosmetic>, Contain {
 		this.occasion.add(occasion);
 	}
 
-	public void setReviwe(String review) {
+	public void setReview(String review) {
 		this.review = review;
 	}
 	
 	@Override
 	public boolean contain(String s) {
-		return category.equals(s)||brand.equals(s)||name.equals(s)||color.equals(s);
+		return category.equals(s)||brand.equals(s)||name.equals(s)||color.equals(s)||occasion.contains(s);
 	}
+	
 
 	/** accessor **/
 	public String getCategory() {
@@ -182,6 +183,11 @@ public class Cosmetic implements Comparable<Cosmetic>, Contain {
 			Cosmetic C = (Cosmetic) o;
 			return brand.equals(C.brand) && name.equals(C.name);
 		}
+	}
+	@Override
+	public String fileOutPutFormat() {
+		return category + "\n" + brand + "\n" + name + "\n"
+				+ String.format("%,.2f", price) + "\n" + color + "\n" + review + "\n" + link;
 	}
 
 }

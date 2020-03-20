@@ -4,9 +4,10 @@
 * @author
 * CIS 22C, Lab 7
 */
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
-public class Hash<T> {
+public class Hash<T extends FileOutPutFormat> {
 
 private int numElements;
 private ArrayList<List<T> > Table;
@@ -169,5 +170,14 @@ public void printBucket(int bucket) {
      }
        
      return s;
+ }
+ 
+ public void writeToFile(PrintWriter p) {
+	 for(int i=0;i<Table.size();i++) {
+		 for(int j=1;j<=Table.get(i).getLength();j++) {
+			 Table.get(i).advanceToIndex(j);
+			 p.println(Table.get(i).getIterator().fileOutPutFormat());
+		 }
+	 }
  }
 }

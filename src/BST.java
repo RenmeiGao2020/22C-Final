@@ -12,11 +12,10 @@
  * 
  */
 
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.NoSuchElementException;
 
-@SuppressWarnings("hiding")
-public class BST<T extends Comparable<T>& Contain> {
+public class BST<T extends Comparable<T>& Contain&FileOutPutFormat> {
 	protected class Node {
 		protected T data;
 		protected Node left;
@@ -322,7 +321,10 @@ public class BST<T extends Comparable<T>& Contain> {
 		if (root == null) {
 			root = new Node(data);
 		} else {
-			insert(data, root);
+			if(!search(data)) {
+				insert(data, root);
+			}
+			
 		}
 	}
 
@@ -361,18 +363,32 @@ public class BST<T extends Comparable<T>& Contain> {
 			if (node.left == null) {
 				node.left = new Node(data);
 			} else {
-				insert(data, node.left);
+				insertByPrice(data, node.left);
 			}
 		} else {
 			if (node.right == null) {
 				node.right = new Node(data);
 			} else {
-				insert(data, node.right);
+				insertByPrice(data, node.right);
 			}
 		}
 	}
 	
-	
+	public void insertAll(BST<T> bst) {
+		if(bst.isEmpty()||bst==null) {
+			return;
+		}
+		else {
+			insertAll(bst.root);
+		}
+	}
+	private void insertAll(Node node) {
+		if(node!=null) {
+			insertAll(node.left);
+			this.insert(node.data);
+			insertAll(node.right);
+		}
+	}
 
 	/**
 	 * Removes a value from the BST
@@ -492,28 +508,43 @@ public class BST<T extends Comparable<T>& Contain> {
 		}
 	}
 	
-	public ArrayList<Cosmetic> CosmeticContain(String s){
+	public BST<Cosmetic> CosmeticContain(String s){
 		if(root == null) {
 			return null;
 		}
 		else {
-			ArrayList<Cosmetic> al= new ArrayList<>();
+			BST<Cosmetic> al= new BST<>();
 			al = CosmeticContain(root, s);
 			return al;
 		}
 	}
 	
-	private ArrayList<Cosmetic> CosmeticContain(Node node, String s) {
+	private BST<Cosmetic> CosmeticContain(Node node, String s) {
 		if(node != null) {
-			ArrayList<Cosmetic> al = new ArrayList<>();
-			al.addAll(CosmeticContain(node.left, s));
+			BST<Cosmetic> al = new BST<>();
+			al.insertAll(CosmeticContain(node.left, s));
 			if(node.data.contain(s)) {
-				al.add((Cosmetic)node.data);
+				al.insert((Cosmetic)node.data);
 			}
-			al.addAll(CosmeticContain(node.right, s));
+			al.insertAll(CosmeticContain(node.right, s));
 			return al;
 		}
 		return null;
+	}
+	
+	public void writeToFile(PrintWriter p) {
+		if(root == null) {
+			return;
+		}
+		writeToFile(p,root);
+	}
+	
+	private void writeToFile(PrintWriter p, Node node) {
+		if (node != null) {
+			writeToFile(p,node.left);
+			p.println(node.data.fileOutPutFormat());
+			writeToFile(p,node.right);
+		}
 	}
 
 }

@@ -1,5 +1,5 @@
 
-public class user {
+public class user implements FileOutPutFormat {
 	private String username;
 	private String password;
 	
@@ -41,6 +41,11 @@ public class user {
     	}
         return key;
     }
+
+	@Override
+	public String fileOutPutFormat() {
+		return username+"\n"+password;
+	}
 
 
 }
