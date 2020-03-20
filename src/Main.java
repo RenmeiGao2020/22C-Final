@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -62,6 +63,8 @@ public class Main {
 		String color = "";
 		String link = "";
 		String review = "";
+		int occNum = 0;
+		ArrayList<String> occ = new ArrayList<>();
 		Cosmetic c;
 		while (input.hasNextLine()) {
 
@@ -71,8 +74,14 @@ public class Main {
 			price = input.nextDouble();
 			input.nextLine();
 			color = input.nextLine();
-
-			c = new Cosmetic(category, brand, name, price, color, link, review);
+			link = input.nextLine();
+			occNum = input.nextInt();
+			input.nextLine();
+			for(int i=0;i<occNum;i++) {
+				occ.add(input.nextLine());
+			}
+			review = input.nextLine();
+			c = new Cosmetic(category, brand, name, price, color, link, occ, review);
 			ht.insert(c);
 			bst1.insert(c);
 			bst2.insertByPrice(c);
@@ -215,7 +224,8 @@ public class Main {
 		double price = input.nextDouble();
 		System.out.print("Enter the color");
 		String color = input.nextLine();
-		Cosmetic add = new Cosmetic(category, brand, name, price, color, link, review);
+		ArrayList<String> occ = new ArrayList<>();
+		Cosmetic add = new Cosmetic(category, brand, name, price, color, link, occ, review);
 		bst1.insert(add);
 		bst2.insert(add);
 		ht.insert(add);
@@ -244,20 +254,15 @@ public class Main {
 	}
 
 	public void removing(Scanner input) {
-		String category = "";
 		String brand = "";
 		String name = "";
-		double price = 0.0;
-		String color = "";
-		String link = "";
-		String review = "";
 
 		System.out.println("\nRemoving a Cosmetic!\n");
 		System.out.print("Enter the brand: ");
 		brand = input.nextLine();
 		System.out.print("Enter the name: ");
 		name = input.nextLine();
-		Cosmetic remove = new Cosmetic(category, brand, name, price, color, link, review);
+		Cosmetic remove = new Cosmetic(brand, name);
 		if (bst1.search(remove) == true) {
 			bst1.remove(remove);
 			bst2.remove(remove);
@@ -284,7 +289,7 @@ public class Main {
 		brand = input.nextLine();
 		System.out.print("Enter the name: ");
 		name = input.nextLine();
-		Cosmetic edit = new Cosmetic(category, brand, name, price, color, link, review);
+		Cosmetic edit = new Cosmetic(brand, name);
 		Cosmetic c = bst1.searchAndGet(edit);
 		if (c != null) {
 			bst1.remove(c);
@@ -367,20 +372,15 @@ public class Main {
 	}
 
 	public void delate(Scanner input) {
-		String category = "";
 		String brand = "";
 		String name = "";
-		double price = 0.0;
-		String color = "";
-		String link = "";
-		String review = "";
 
 		System.out.println("\nSearching for a Cosmetic!\n");
 		System.out.print("Enter the brand: ");
 		brand = input.nextLine();
 		System.out.print("Enter the name: ");
 		name = input.nextLine();
-		Cosmetic search = new Cosmetic(category, brand, name, price, color, link, review);
+		Cosmetic search = new Cosmetic(brand, name);
 		if (bst1.search(search) == false) {
 			System.out.println("\n" + brand + "\'s " + name + " is not in the database.");
 
@@ -394,20 +394,16 @@ public class Main {
 	}
 
 	public void searching(Scanner input) {
-		String category = "";
 		String brand = "";
 		String name = "";
-		double price = 0.0;
-		String color = "";
-		String link = "";
-		String review = "";
+
 
 		System.out.println("\nSearching for a Cosmetic!\n");
 		System.out.print("Enter the brand: ");
 		brand = input.nextLine();
 		System.out.print("Enter the name: ");
 		name = input.nextLine();
-		Cosmetic search = new Cosmetic(category, brand, name, price, color, link, review);
+		Cosmetic search = new Cosmetic(brand, name);
 		if (bst1.search(search) == false) {
 			System.out.println("\n" + brand + "\'s " + name + " is not in the database.");
 

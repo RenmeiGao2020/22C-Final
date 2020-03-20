@@ -10,7 +10,7 @@ public class Cosmetic implements Comparable<Cosmetic>, Contain,FileOutPutFormat 
 	private ArrayList<String> occasion;
 	private String review;
 
-	public Cosmetic(String category, String brand, String name, double price, String color, String link,
+	public Cosmetic(String category, String brand, String name, double price, String color, String link,ArrayList<String> occ,
 			String review) {
 		this.category = category;
 		this.brand = brand;
@@ -18,8 +18,13 @@ public class Cosmetic implements Comparable<Cosmetic>, Contain,FileOutPutFormat 
 		this.price = price;
 		this.color = color;
 		this.link = link;
-		this.occasion = new ArrayList<>();
+		this.occasion = occ;
 		this.review = review;
+	}
+	
+	public Cosmetic(String brand, String name) {
+		this.name = name;
+		this.brand = brand;
 	}
 
 	/** mutator **/
@@ -57,7 +62,7 @@ public class Cosmetic implements Comparable<Cosmetic>, Contain,FileOutPutFormat 
 	
 	@Override
 	public boolean contain(String s) {
-		return category.equals(s)||brand.equals(s)||name.equals(s)||color.equals(s)||occasion.contains(s);
+		return category.equalsIgnoreCase(s)||brand.equalsIgnoreCase(s)||name.equalsIgnoreCase(s)||color.equalsIgnoreCase(s)||occasion.contains(s.toLowerCase());
 	}
 	
 
