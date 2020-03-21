@@ -41,6 +41,10 @@ public class user implements FileOutPutFormat {
     	}
         return key;
     }
+	
+	@Override public String toString() {
+		return "Username: "+username+"\nPassword: "+password;
+	}
 
 	@Override
 	public String fileOutPutFormat() {

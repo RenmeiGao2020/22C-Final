@@ -508,28 +508,29 @@ public class BST<T extends Comparable<T>& Contain&FileOutPutFormat> {
 		}
 	}
 	
-	public BST<Cosmetic> CosmeticContain(String s){
+	public BST<T> CosmeticContain(String s){
 		if(root == null) {
 			return null;
 		}
 		else {
-			BST<Cosmetic> al= new BST<>();
+			BST<T> al= new BST<>();
 			al = CosmeticContain(root, s);
 			return al;
 		}
 	}
 	
-	private BST<Cosmetic> CosmeticContain(Node node, String s) {
+	private BST<T> CosmeticContain(Node node, String s) {
+		BST<T> al = new BST<>();
 		if(node != null) {
-			BST<Cosmetic> al = new BST<>();
+			
 			al.insertAll(CosmeticContain(node.left, s));
 			if(node.data.contain(s)) {
-				al.insert((Cosmetic)node.data);
+				al.insert((T)node.data);
 			}
 			al.insertAll(CosmeticContain(node.right, s));
-			return al;
+			
 		}
-		return null;
+		return al;
 	}
 	
 	public void writeToFile(PrintWriter p) {

@@ -23,7 +23,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		Main C = new Main();
 
-		File file = new File("cosmetics.txt");
+		File file = new File("Cosmetics.txt");
 		Scanner input = new Scanner(file);
 		C.populateData(input);
 		file = new File("user.txt");
@@ -37,12 +37,12 @@ public class Main {
 		String choice = "";
 		while(!choice.equalsIgnoreCase("1")) {
 			int id = C.login();
-			if(id==1) {
+			if(id==2) {
 				C.managerInterface();
 				System.out.print("Will go back to login page or pass 1 to exit");
 				choice = input.nextLine();
 			}
-			else if(id == 2) {
+			else if(id == 1) {
 				C.userInterface();
 				System.out.print("Will go back to login page or pass 1 to exit");
 				choice = input.nextLine();
@@ -64,23 +64,38 @@ public class Main {
 		String link = "";
 		String review = "";
 		int occNum = 0;
-		ArrayList<String> occ = new ArrayList<>();
+		ArrayList<String> occ;
 		Cosmetic c;
 		while (input.hasNextLine()) {
 
 			category = input.nextLine();
+			System.out.println(category);
 			brand = input.nextLine();
+			System.out.println(brand);
 			name = input.nextLine();
+			System.out.println(name);
 			price = input.nextDouble();
+			System.out.println(price);
 			input.nextLine();
 			color = input.nextLine();
-			link = input.nextLine();
+			System.out.println(color);
 			occNum = input.nextInt();
+			System.out.println(occNum);
 			input.nextLine();
+			occ = new ArrayList<>();
 			for(int i=0;i<occNum;i++) {
 				occ.add(input.nextLine());
 			}
+			System.out.println(occ);
 			review = input.nextLine();
+			System.out.println(review);
+			link = input.nextLine();
+			System.out.println(link);
+			if(input.hasNextLine()) {
+				input.nextLine();
+			}
+			
+			
 			c = new Cosmetic(category, brand, name, price, color, link, occ, review);
 			ht.insert(c);
 			bst1.insert(c);
@@ -94,10 +109,14 @@ public class Main {
 		while (input.hasNextLine()) {
 			String username = input.nextLine();
 			String password = input.nextLine();
-			input.nextLine();
+			if(input.hasNextLine()) {
+				input.nextLine();
+			}
+			
 			u = new user(username, password);
 			userHash.insert(u);
 		}
+		System.out.println("UserHash:\n"+userHash);
 
 	}
 
@@ -107,10 +126,13 @@ public class Main {
 		while (input.hasNextLine()) {
 			String username = input.nextLine();
 			String password = input.nextLine();
-			input.nextLine();
+			if(input.hasNextLine()) {
+				input.nextLine();
+			}
 			u = new user(username, password);
-			userHash.insert(u);
+			managerHash.insert(u);
 		}
+		System.out.println("ManagerHash:\n"+managerHash);
 
 	}
 
@@ -126,11 +148,13 @@ public class Main {
 
 	public void managerInterface() {
 		Scanner input = new Scanner(System.in);
-		System.out.println(
-				"\n1.Display product" + "\n2.Add product" + "\n3.delate product" + "\n4.Edit product" + "\n5.Exit");
-		System.out.print("\nEnter you chooise:");
-		String chooice = input.nextLine();
+		String chooice ="";
+		
 		while (!chooice.equals("5")) {
+			System.out.println(
+					"\n1.Display product" + "\n2.Add product" + "\n3.delate product" + "\n4.Edit product" + "\n5.Exit");
+			System.out.print("\nEnter you chooise:");
+			chooice = input.nextLine();
 			if (chooice.equals("1")) {
 				displaying(input);
 			} else if (chooice.equals("2")) {
@@ -139,7 +163,10 @@ public class Main {
 				delate(input);
 			} else if (chooice.equals("4")) {
 				editing(input);
-			} else {
+			} else if(chooice.equals("5")){
+				System.out.println("Tank you for chooice our program!");
+			}
+			else {
 				System.out.println("\nInvalid Selection!");
 			}
 		}
@@ -148,7 +175,7 @@ public class Main {
 	public void userInterface() {
 		Scanner input = new Scanner(System.in);
 		String chooice = "";
-		System.out.println("Welcome to Cosmetics Deal Space Station!\n");
+		System.out.println("\nWelcome to Cosmetics Deal Space Station!\n");
 		while (!chooice.equals("3")) {
 			System.out.println(
 					"\n1.Display product" + "\n2.SmartSearch"+ "\n3.Exit");
@@ -174,7 +201,7 @@ public class Main {
 			System.out.println("Welcome to our Smart Search Program\n"+"What are you looking for?\r\n" + 
 					"You can enter category + brand or category + occasion\n"+
 					"It support multiple keywords search and match\n"+
-					"keyword split by a space"+
+					"keyword split by a \",\"\n"+
 					"X for Exit");
 			System.out.print("\nEnter you chooise:");
 			chooice = input.nextLine();
@@ -194,9 +221,9 @@ public class Main {
 
 	public int login() {
 		Scanner input = new Scanner(System.in);
-		int pass =1;
-		while(pass>0) {
-			System.out.println("Welcome to Cosmetics Deal Space Station!");
+		int pass =-1;
+		while(pass<0) {
+			System.out.println("\nWelcome to Cosmetics Deal Space Station!");
 			System.out.println("\nlogin");
 			System.out.print("\nPls enter your user name:");
 			String username = input.nextLine();
@@ -204,9 +231,8 @@ public class Main {
 			String passwd = input.nextLine();
 			user u = new user(username, passwd);
 			pass = checkuser(u);
-			input.close();
+			System.out.println(pass);
 		}
-		
 		return pass;
 	}
 
@@ -222,6 +248,7 @@ public class Main {
 		String name = input.nextLine();
 		System.out.print("Enter the price: $");
 		double price = input.nextDouble();
+		input.nextLine();
 		System.out.print("Enter the color");
 		String color = input.nextLine();
 		ArrayList<String> occ = new ArrayList<>();
@@ -328,6 +355,7 @@ public class Main {
 				} else if (chooice.equalsIgnoreCase("price")) {
 					System.out.print("Enter new price:");
 					price = input.nextDouble();
+					input.nextLine();
 					System.out.print("Confirm change price from " + c.getPrice() + " to " + price + ". (yes or no)");
 					chooice = input.nextLine();
 					if (chooice.equalsIgnoreCase("yes")) {
@@ -366,7 +394,7 @@ public class Main {
 			bst2.insert(c);
 			ht.insert(c);
 		} else {
-			System.out.println("\n" + brand + "\'s " + name + " is in the database.");
+			System.out.println("\n" + brand + "\'s " + name + " is not in the database.");
 		}
 
 	}
