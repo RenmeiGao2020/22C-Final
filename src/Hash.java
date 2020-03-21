@@ -84,6 +84,15 @@ public int search(T t) {
     
 }
 
+public T searchAndGet(T t) {
+	int index = search(t);
+	if(index>0) {
+		Table.get(index).advanceToIndex(Table.get(index).linearSearch(t));
+		return Table.get(index).getIterator();
+	}
+	return null;
+}
+
 public boolean check(T t) {
 	int index = search(t);
 	if(index > 0) {

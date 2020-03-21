@@ -242,29 +242,7 @@ public class BST<T extends Comparable<T>& Contain&FileOutPutFormat> {
 		}
 	}
 	
-	public T searchAndGet(T data) {
-		if (root == null) {
-			return null;
-		} else {
-			return searchAndGet(data, root);
-		}
-	}
 	
-	private T searchAndGet(T data, Node node) {
-		if (data.equals(node.data)) {
-			return node.data;
-		} else if (data.compareTo(node.data) < 0) {
-			if (node.left == null) {
-				return null;
-			}
-			return searchAndGet(data, node.left);
-		} else {
-			if (node.right == null) {
-				return null;
-			}
-			return searchAndGet(data, node.right);
-		}
-	}
 
 	/**
 	 * Determines whether two trees store identical data in the same structural
@@ -508,26 +486,26 @@ public class BST<T extends Comparable<T>& Contain&FileOutPutFormat> {
 		}
 	}
 	
-	public BST<T> CosmeticContain(String s){
+	public BST<T> Contain(String s){
 		if(root == null) {
 			return null;
 		}
 		else {
 			BST<T> al= new BST<>();
-			al = CosmeticContain(root, s);
+			al = Contain(root, s);
 			return al;
 		}
 	}
 	
-	private BST<T> CosmeticContain(Node node, String s) {
+	private BST<T> Contain(Node node, String s) {
 		BST<T> al = new BST<>();
 		if(node != null) {
 			
-			al.insertAll(CosmeticContain(node.left, s));
+			al.insertAll(Contain(node.left, s));
 			if(node.data.contain(s)) {
 				al.insert((T)node.data);
 			}
-			al.insertAll(CosmeticContain(node.right, s));
+			al.insertAll(Contain(node.right, s));
 			
 		}
 		return al;

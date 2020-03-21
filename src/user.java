@@ -48,7 +48,7 @@ public class user implements FileOutPutFormat {
 
 	@Override
 	public String fileOutPutFormat() {
-		return username+"\n"+password;
+		return username+"\n"+password+"\n";
 	}
 
 

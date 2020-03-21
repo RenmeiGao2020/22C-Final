@@ -191,8 +191,13 @@ public class Cosmetic implements Comparable<Cosmetic>, Contain,FileOutPutFormat 
 	}
 	@Override
 	public String fileOutPutFormat() {
+		int occNum = occasion.size();
+		String occ = "";
+		for(int i=0;i<occNum;i++) {
+			occ += occasion.get(i)+"\n";
+		}
 		return category + "\n" + brand + "\n" + name + "\n"
-				+ String.format("%,.2f", price) + "\n" + color + "\n" + review + "\n" + link;
+				+ String.format("%,.2f", price) + "\n" + color + "\n" + occNum +"\n" + occ + review + "\n" + link+"\n\n";
 	}
 
 }
