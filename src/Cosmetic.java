@@ -62,7 +62,7 @@ public class Cosmetic implements Comparable<Cosmetic>, Contain,FileOutPutFormat 
 	
 	@Override
 	public boolean contain(String s) {
-		return category.equalsIgnoreCase(s)||brand.equalsIgnoreCase(s)||name.equalsIgnoreCase(s)||color.equalsIgnoreCase(s)||occasion.contains(s.toLowerCase());
+		return category.equalsIgnoreCase(s)||brand.equalsIgnoreCase(s)||name.contains(s)||color.equalsIgnoreCase(s)||occasion.contains(s.toLowerCase());
 	}
 	
 
@@ -197,7 +197,7 @@ public class Cosmetic implements Comparable<Cosmetic>, Contain,FileOutPutFormat 
 			occ += occasion.get(i)+"\n";
 		}
 		return category + "\n" + brand + "\n" + name + "\n"
-				+ String.format("%,.2f", price) + "\n" + color + "\n" + occNum +"\n" + occ + review + "\n" + link+"\n\n";
+				+ String.format("%,.2f", price) + "\n" + color + "\n" + occNum +"\n" + occ + review + "\n" + link+"\n";
 	}
 
 }
