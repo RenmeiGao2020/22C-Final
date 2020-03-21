@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Main {
+public class DealStation {
 	private final int NUM_COSETICS = 25;
 	Hash<Cosmetic> ht = new Hash<>(NUM_COSETICS * 2);
 	BST<Cosmetic> bst1 = new BST<>();
@@ -22,7 +22,7 @@ public class Main {
 	Hash<user> managerHash = new Hash<>(100);
 
 	public static void main(String[] args) throws IOException {
-		Main C = new Main();
+		DealStation C = new DealStation();
 
 		File file = new File("Cosmetics.txt");
 		Scanner input = new Scanner(file);
